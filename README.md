@@ -1,2 +1,5 @@
 # ICS3U1
-Grade 11 Computer Science
+
+## About
+
+My class notes and code for Grade 11 Computer Science with the TDSB
