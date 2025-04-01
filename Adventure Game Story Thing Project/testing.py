@@ -1,7 +1,7 @@
-class Format:
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-    CURSOR_UP_ONE = '\x1b[1A'
-    ERASE_LINE = '\x1b[2K'
+import time
 
-print(Format.BOLD + Format.UNDERLINE + 'Hello')
+text = "abc"
+
+for char in text:
+    print(char, end="", flush=True)
+    time.sleep(0.2)
