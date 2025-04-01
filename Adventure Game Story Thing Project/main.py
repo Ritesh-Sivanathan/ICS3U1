@@ -63,7 +63,7 @@ class Player:
         
         properties = {'Networth': f'${self.NETWORTH}', 'Reputation': self.REPUTATION, 'Risk': f'{self.RISK}%'}
         
-        print('\n' + Format.BOLD + Format.UNDERLINE + "Stats:")
+        print('\n\n' + Format.BOLD + Format.UNDERLINE + "Stats:")
 
         for key, value in properties.items():
             print(f"{Fore.GREEN + key}: {Format.BOLD + str(value)}")
@@ -135,7 +135,7 @@ def intro():
         utils.type_text(f"Data showing in {i}", color=Fore.MAGENTA)
         time.sleep(1)
 
-    suspiciousEvidence = pd.read_csv('./suspicious_evidence.csv')
+    suspiciousEvidence = pd.read_csv('./assets/suspicious_evidence.csv')
         
     print('\n' + '-' * 20 + '\n')
         
@@ -217,13 +217,15 @@ def accept_bribe():
             if (not shown_success_msg):
                 
                 utils.type_text("\nYou're still making millions, though.", color=Fore.GREEN)
-                utils.type_text("\nYou've purchased a few new toys, a downtown condo and have your own law firm. Life is great.")
+                utils.type_text("\nYou've purchased a few new toys, a downtown condo and have your own law firm.")
                 
                 if not DEVELOPMENT_ENV:
-                    utils.display_image('porsche.jpg', title="New Car")
-                    utils.display_image('condo.jpg', title="Luxury Condo - Downtown D.C")
-                    utils.display_image('watches.jpg', title="Watch collection")
+                    utils.display_image('./assets/porsche.jpg', title="New Car")
+                    utils.display_image('./assets/condo.jpg', title="Luxury Condo - Downtown D.C")
+                    utils.display_image('./assets/watches.jpg', title="Watch collection")
                 
+                utils.type_text("Life is great.")
+
                 utils.type_text("\nYou reflect on how your life went from barely surviving in a run down apartment in the worst area of D.C to becoming the Wolf of K Street ")
                 
                 shown_success_msg = True
