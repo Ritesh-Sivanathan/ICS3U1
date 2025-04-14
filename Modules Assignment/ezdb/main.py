@@ -1,3 +1,8 @@
+'''
+Name:
+Date:
+Description:
+'''
 
 # mock database, like mongodb. info stored in text file (or csv)
 # info stored in a folder
@@ -6,3 +11,10 @@
 
 # simple CRUD functionality
 # uses basic external libraries
+
+import read_db
+
+def main():
+    read_db.full_read()
+
+main()
