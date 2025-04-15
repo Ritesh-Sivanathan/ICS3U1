@@ -1,7 +1,10 @@
-import time
+import random
 
-text = "abc"
+a = [
+    {'id': 'a'},
+    {'id': 'b'},
+    {'id': 'c'},
+]
 
-for char in text:
-    print(char, end="", flush=True)
-    time.sleep(0.2)
+random.shuffle(a)
+print(a)

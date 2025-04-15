@@ -26,7 +26,8 @@ def show_collections():
     
     dict = full_read()
 
-    for collection in dict["Collections"].
+    for collection in dict["Collections"]:
+        pass
 
 def collection_read(collection: str):
 
