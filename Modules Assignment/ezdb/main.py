@@ -12,9 +12,9 @@ Description:
 # simple CRUD functionality
 # uses basic external libraries
 
-import read_db
+from ezdb.ops.read_db import show_collections
 
 def main():
-    read_db.full_read()
+    show_collections()
 
 main()
