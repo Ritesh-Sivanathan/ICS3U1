@@ -17,10 +17,10 @@ Description:
 # simple CRUD functionality
 # uses basic external libraries
 
-from file_ops import ReadOPS, WriteOPS, ModOPS, CategoryOPS
+from ezdb import ReadOPS, WriteOPS, ModOPS, CategoryOPS
 
 def main():
     ReadOPS.collection('users')
-    ReadOPS.collections()
+    ReadOPS.collection
 
 main()
