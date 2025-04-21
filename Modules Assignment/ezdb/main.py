@@ -12,9 +12,10 @@ Description:
 # simple CRUD functionality
 # uses basic external libraries
 
-from ezdb import ReadOPS
+from file_ops import ReadOPS, WriteOPS, ModOPS, CategoryOPS
 
 def main():
-    ReadOPS.show_collections()
+    ReadOPS.collection('users')
+    ReadOPS.collections()
 
 main()
