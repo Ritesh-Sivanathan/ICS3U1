@@ -1,4 +1,9 @@
 '''
+CHANGE ACTIVE DIRECTORY TO ../ezdb
+!!! THEN RUN main.py
+'''
+
+'''
 Name:
 Date:
 Description:
