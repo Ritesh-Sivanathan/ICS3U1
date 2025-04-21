@@ -1,2 +1,15 @@
-id,name,position,salary,
-0,"Ritesh","Founder",125000
+id,user,date,purchases
+1,riteshsiva,4/13/2025,5
+2,anonameth,4/15/2025,2
+3,abc123,4/15/2025,0
+4,joe_b,4/16/2025,1
+5,yawnzy,4/16/2025,0
+6,jacobster4342,4/16/2025,3
+7,bboy,4/16/2025, 7
+8,little_fr,4/17/2025, 5
+9,trickykicky,4/17/2025, 3
+10,mickeymouse,4/17/2025, 1
+11,portugal_the_man,4/17/2025, 0
+12,c_s,4/16/2025, 0
+13,johnny,4/16/2025, 0
+14,billyjohn,4/16/2025, 1

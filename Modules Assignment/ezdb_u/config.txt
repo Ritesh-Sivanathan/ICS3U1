@@ -1,2 +1,2 @@
-Name:""
-Collections:[]
+Name:Database
+Collections:users,purchases
