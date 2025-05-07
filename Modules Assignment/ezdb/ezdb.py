@@ -14,7 +14,12 @@ class ReadOPS:
 
     BUFFER = 2**16
 
-    def config() -> dict: # Show config file contents
+    def config() -> dict:
+
+        '''
+        Shows configuration file content (`config.txt`).
+        Does not write or modify anything, just reads.
+        '''
 
         dict = {
             "Name": "",
@@ -39,8 +44,12 @@ class ReadOPS:
 
         return dict # Dict is the config file as a dictionary
 
-    def collections() -> int: # Show names of all created collections + related data
-        
+    def collections() -> int:
+
+        '''
+        Show names of all created collections and other related information
+        '''
+
         dict = ReadOPS.config()
         
         print("Collections")
@@ -56,7 +65,12 @@ class ReadOPS:
 
         return 0
 
-    def collection(collection: str) -> int: # Show all the data in a collection
+    def collection(collection: str) -> int:
+        
+        '''
+        Show all the data in a collection.
+        Usage: collection(collection: str) # collection is the collection's name
+        '''
         
         collection_data = open(f"../ezdb_u/collections/{collection}.csv")
         
