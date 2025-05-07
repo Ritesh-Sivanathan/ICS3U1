@@ -281,7 +281,7 @@ def accept_bribe(): # Storyline 1
         removals = [1,2,3,4,5] # Keep these to track the ones the user hasn't removed so we can easily print it if they fail
 
         for info in personal_info: # Iterate through every object in the dictionary
-            utils.type_text(f'ID: {info['id']} Name: {info['name']}\n', color=Fore.RED)
+            utils.type_text(f'ID: {info["id"]} Name: {info["name"]}\n', color=Fore.RED)
 
         number_to_remove = int(input("\nHow many pieces of IDENTIFYING evidence do you think you have to remove to be well covered without completely wiping all the data?: "))
 
