@@ -70,7 +70,7 @@ def handle_next():
 
         question += 1
         
-        question_label.config(text=f"Question {question}/4")
+        question_label.config(text=f"Question {question}/{MAX_QUESTIONS}")
         score_label.config(text=f"Score: {score}")
 
         question_text.destroy()
@@ -80,7 +80,7 @@ def handle_next():
 
     refresh_frame()
 
-    if question == MAX_QUESTIONS:
+    if question == MAX_QUESTIONS+1:
         print("FIN")
         button.destroy()
         handle_submit()
