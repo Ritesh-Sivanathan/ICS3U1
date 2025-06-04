@@ -4,7 +4,6 @@ Tkinter colours --> https://cs111.wellesley.edu/archive/cs111_fall14/public_html
 
 '''
 
-
 import tkinter as tk
 from tkinter import ttk
 from tkinter import * 
@@ -22,7 +21,7 @@ root.configure(bg="white")
 counter = 0 # !TEMP Counter for the progress bar
 question = 1 # Current question
 score = 0 # number of correct answers
-MAX_QUESTIONS = len(pre_processed_images)/2
+MAX_QUESTIONS = int(len(pre_processed_images)/2)
 
 processed_images = [] # Empty array to add the processed PIL objects to
 stack = [] # Temporary stack for the images
@@ -46,20 +45,24 @@ stack.append(processed_images[1])
 
 # Submit Button
 
+print(MAX_QUESTIONS)
+
 def handle_next():
 
     global processed_images, stack, question, score # Making the variables global since we're reassigning its value locally
     
+    print(question)
+    
     answer1, answer2 = get_user_input()
 
-    if question in range(1, int(MAX_QUESTIONS)):
+    if question in range(1, int(MAX_QUESTIONS)+1):
     
         if answer1 in labels[question-1][0]:
             score +=1
         if answer2 in labels[question-1][1]:
             score += 1
 
-    if question != MAX_QUESTIONS:
+    if question <= MAX_QUESTIONS:
 
         if len(processed_images) > 0:
             processed_images = processed_images[2:]
@@ -69,6 +72,7 @@ def handle_next():
         
         question_label.config(text=f"Question {question}/4")
         score_label.config(text=f"Score: {score}")
+
         question_text.destroy()
 
         entries.clear()
@@ -77,6 +81,7 @@ def handle_next():
     refresh_frame()
 
     if question == MAX_QUESTIONS:
+        print("FIN")
         button.destroy()
         handle_submit()
 
@@ -85,20 +90,39 @@ def handle_submit():
     for widget in image_input_frame.winfo_children():
         widget.destroy()
     
+    score_label.destroy()
+
     final_score = tk.Label(
         top_frame,
         text=f"Final Score: {score}",
-        font=("Helvetica", 16, "bold")
+        font=("Helvetica", 16, "bold"),
+        justify="center",
     )
 
     percentage_score = tk.Label(
         middle_frame,
-        text=str(int((score/(MAX_QUESTIONS*2))*100))
+        text=str(f"{int((score/(MAX_QUESTIONS*2))*100)}%"),
+        font=("Helvetica", 20, "bold")
+    )
+
+    pass_or_fail = "PASS" 
+    colour = "green"
+    
+    if int((score/(MAX_QUESTIONS*2))*100) < 50:
+        pass_or_fail = "FAIL"
+        colour = "red"
+
+    pass_ = tk.Label(
+        middle_frame,
+        text=pass_or_fail,
+        font=("Helvetica", 20, "bold"),
+        fg=colour
     )
 
     percentage_score.pack()
 
     final_score.pack()
+    pass_.pack()
 
 
 # "Next" Button
@@ -169,7 +193,7 @@ def create_image_input(parent, img):
     container.pack(side=tk.LEFT, padx=30)
 
 def get_user_input():
-    return ([entry.get() for entry in entries])
+    return ([entry.get().lower().strip().replace("-", "") for entry in entries])
 
 def load_images():
     
