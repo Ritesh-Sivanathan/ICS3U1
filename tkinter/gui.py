@@ -153,6 +153,12 @@ button = tk.Button(text="Next", justify="center", padx=40, pady=10, bg="lightgre
 
 # Basic frame definitions
 
+"""
+
+Most of the code below is just creating and packing frames and buttons and labels, so too many comments won't be added.
+
+"""
+
 top_frame = tk.Frame(root, bg="black", height=300, pady=25)
 top_frame.pack(expand=True, fill=tk.X)
 
@@ -185,7 +191,7 @@ progress = ttk.Progressbar( #
     mode="determinate",
 )
 
-progress["value"] = 0
+progress["value"] = 0 # Setting value of progress
 progress.pack(pady=25)
 
 bottom_frame.pack(side=tk.BOTTOM, fill=tk.X, pady=20)
@@ -218,7 +224,7 @@ def create_image_input(parent, img):
 
     """
     
-
+    Create the image frame and input box
 
     """
     
@@ -249,7 +255,7 @@ def load_images():
     
     """
     
-    Delete and create image frames with inputs.
+    Delete previous image frames and load next two.
     
     """
     
