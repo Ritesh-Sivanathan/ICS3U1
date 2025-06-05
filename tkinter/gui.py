@@ -51,13 +51,13 @@ stack = processed_images[:IMAGES_PER_QUESTION] # Temporary stack for the current
 
 def handle_next():
 
-    '''
+    """
     
     This function handles the user clicking the "Next" button.
     It first checks the input the user entered in the Entry elements. If the answers are correct, it increments the score by one for each question.
     
-    '''
-
+    """
+    
     global processed_images, stack, question, score # Making the variables global since we're REASSIGNING its value locally
         
     answer1, answer2 = get_user_input() # get_user_input function handles user input from the Entry elements
@@ -99,12 +99,12 @@ def handle_next():
 
 def handle_submit():
 
-    '''
+    """
     
     Handles the click of the last "Next" button.
     Destroys the images from the previous frame. Also destroys the score label so it can be refreshde.
     
-    '''
+    """
 
     for widget in image_input_frame.winfo_children(): # Destroy images from previous frame
         widget.destroy()
@@ -229,15 +229,21 @@ def create_image_input(parent, img):
 
 def get_user_input():
 
-    '''
+    """
     
     Process and return the inputs that the user entered
     
-    '''
+    """
 
     return ([entry.get().lower().strip().replace("-", "") for entry in entries]) # The formatting converts the letters to lowercase, gets rid of whitespaces and gets rid of any dashes (-)
 
 def load_images():
+    
+    """
+    
+    Delete and create image frames with inputs.
+    
+    """
     
     for widget in image_input_frame.winfo_children(): # Delete the previous images
         widget.destroy()
@@ -246,19 +252,6 @@ def load_images():
         create_image_input(image_input_frame, stack[i])
 
 load_images()
-
-# Tick
-
-tick_label = tk.Label(
-    bottom_frame,
-    text="",
-    font=("Arial", 16),
-    bg="white"
-)
-
-tick_label.pack()
-
-
 
 # Refresh Progress Bar
 
