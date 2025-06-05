@@ -5,6 +5,8 @@ Date: 6/5/2025
 Description:
 
 Fun airplane identification quiz. Two questions per "slide", one point per correct question. 
+Initial load time depends on your internet connection
+
 
 '''
 
@@ -13,6 +15,8 @@ from tkinter import ttk
 from tkinter import * 
 from PIL import Image, ImageTk
 from info import pre_processed_images, labels
+from urllib.request import urlopen
+import io
 
 MAX_QUESTIONS = int(len(pre_processed_images)/2) # Setting the number of questions dynamically
 IMAGES_PER_QUESTION = 2
@@ -38,10 +42,16 @@ style.configure("TProgressbar", troughcolor='white', bordercolor='white', backgr
 
 for image in pre_processed_images:
 
-    img = Image.open(f"./planes/{image}") # Open image
-    img = img.resize((300,240), Image.LANCZOS) # LANCZOS is a better algorithm for resizing. It takes a bit longer than the other modes but it produces the best quality.
-    tk_img = ImageTk.PhotoImage(img) # Converting the image resized with PIL to a Tkinter image object
-    processed_images.append(tk_img) # Add the processed Tkinter image to the array
+    response = urlopen(image) # Image is the URL
+    img_data = response.read()
+
+    img = Image.open(io.BytesIO(img_data)) # Wrap in BytesIO for PIL to read
+
+    img = img.resize((300, 240), Image.LANCZOS) # Resize the image
+
+    tk_img = ImageTk.PhotoImage(img) # Convert to Tkinter image
+
+    processed_images.append(tk_img) # Add image to processed_images
 
 # Add the first two initial images to the temporary stack
     
