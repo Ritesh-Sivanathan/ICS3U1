@@ -38,7 +38,7 @@ style.configure("TProgressbar", troughcolor='white', bordercolor='white', backgr
 
 for image in pre_processed_images:
 
-    img = Image.open(f"./{image}") # Open image
+    img = Image.open(f"./planes/{image}") # Open image
     img = img.resize((300,240), Image.LANCZOS) # LANCZOS is a better algorithm for resizing. It takes a bit longer than the other modes but it produces the best quality.
     tk_img = ImageTk.PhotoImage(img) # Converting the image resized with PIL to a Tkinter image object
     processed_images.append(tk_img) # Add the processed Tkinter image to the array
@@ -73,7 +73,6 @@ def handle_next():
 
     if question <= MAX_QUESTIONS: # Questions
 
-        question += 1
 
         if len(processed_images) > 0: # Check length of processed_images just in case. If something happened and the length of the processed_images didn't match up with the number of questions, it won't throw an error here,
             processed_images = processed_images[IMAGES_PER_QUESTION:] # Cut out the last two images from the previous question
@@ -82,6 +81,9 @@ def handle_next():
         # Header Labels
 
         question_label.config(text=f"Question {question}/{MAX_QUESTIONS}")
+
+        question += 1
+
         score_label.config(text=f"Score: {score}")
 
         # Delete the previous entries and load the new images
@@ -213,6 +215,12 @@ score_label.pack()
 # Image input function
 
 def create_image_input(parent, img):
+
+    """
+    
+
+
+    """
     
     container = tk.Frame(parent, bg="white", bd=1, padx=10, pady=10)
     
