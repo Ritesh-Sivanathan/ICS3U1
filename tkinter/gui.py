@@ -173,6 +173,19 @@ image_input_frame = tk.Frame(middle_frame, bg="white")
 image_input_frame.pack()
 
 bottom_frame = tk.Frame(root, bg="white")
+
+# Progress Bar
+
+progress = ttk.Progressbar( # 
+    bottom_frame,
+    orient="horizontal",
+    length=800,
+    mode="determinate",
+)
+
+progress["value"] = 0
+progress.pack(pady=25)
+
 bottom_frame.pack(side=tk.BOTTOM, fill=tk.X, pady=20)
 
 # Question Header
@@ -245,17 +258,7 @@ tick_label = tk.Label(
 
 tick_label.pack()
 
-# Progress Bar
 
-progress = ttk.Progressbar(
-    bottom_frame,
-    orient="horizontal",
-    length=800,
-    mode="determinate",
-)
-
-progress["value"] = 0
-progress.pack(pady=25)
 
 # Refresh Progress Bar
 
