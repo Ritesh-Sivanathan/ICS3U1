@@ -9,10 +9,10 @@ Initial load time depends on your internet connection
 
 
 '''
-
+    
 import tkinter as tk
 from tkinter import ttk
-from tkinter import * 
+from tkinter import *
 from PIL import Image, ImageTk
 from info import pre_processed_images, labels
 from urllib.request import urlopen
@@ -93,6 +93,8 @@ def handle_next():
         else:
             entries[1].config(bg="salmon")  # Mark red if incorrect
 
+    question += 1
+
     if question == (MAX_QUESTIONS + 1): # Handle "Submit" (the end of the quiz)
         button.destroy() # Get rid of the "Next" button
         handle_submit()
@@ -120,6 +122,7 @@ def advance_question():
 
     entries.clear()
     load_images()
+
 
     refresh_frame() # Next slide/frame
 
@@ -296,10 +299,7 @@ load_images()
 
 def refresh_frame():
 
-    global question
-
     progress["value"] = ((question)/MAX_QUESTIONS) * 100
-    question += 1
 
 refresh_frame()
 root.mainloop()
