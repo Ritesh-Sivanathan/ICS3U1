@@ -28,6 +28,8 @@ style = ttk.Style()
 root.title("Airplane Identification Quiz")
 root.configure(bg="white") # Main window colour
 
+root.resizable(False, False)
+
 # Important Variables
 
 question = 1 # Current question number (not 0-indexed)
@@ -76,35 +78,48 @@ def handle_next():
 
     if question in range(1, int(MAX_QUESTIONS)+1): # Check if the question is a valid number
     
-        if answer1 in labels[question-1][0]: # Check if first answer correct
-            score +=1
-        if answer2 in labels[question-1][1]: # Check if second answer correct
+        correct1 = answer1 in labels[question-1][0]  # Check if first answer correct
+        correct2 = answer2 in labels[question-1][1]  # Check if second answer correct
+
+        if correct1:
             score += 1
+            entries[0].config(bg="lightgreen")  # Mark entry green if correct
+        else:
+            entries[0].config(bg="salmon")  # Mark red if incorrect
 
-    if question <= MAX_QUESTIONS: # Questions
-
-
-        if len(processed_images) > 0: # Check length of processed_images just in case. If something happened and the length of the processed_images didn't match up with the number of questions, it won't throw an error here,
-            processed_images = processed_images[IMAGES_PER_QUESTION:] # Cut out the last two images from the previous question
-            stack = processed_images[0:IMAGES_PER_QUESTION] # Select the next two images to add to the stack
-        
-        # Header Labels
-
-        question_label.config(text=f"Question {question}/{MAX_QUESTIONS}")
-
-        question += 1
-
-        score_label.config(text=f"Score: {score}")
-
-        # Delete the previous entries and load the new images
-
-        entries.clear()
-        load_images()
+        if correct2:
+            score += 1
+            entries[1].config(bg="lightgreen")  # Mark entry green if correct
+        else:
+            entries[1].config(bg="salmon")  # Mark red if incorrect
 
     if question == (MAX_QUESTIONS + 1): # Handle "Submit" (the end of the quiz)
-
         button.destroy() # Get rid of the "Next" button
         handle_submit()
+        return  # Prevent further execution after submit
+
+    # Wait 800ms to show green/red, then go to next question without freezing UI
+    root.after(800, advance_question)
+
+
+def advance_question():
+    global processed_images, stack, question
+
+    if len(processed_images) > 0: # Check length of processed_images just in case. If something happened and the length of the processed_images didn't match up with the number of questions, it won't throw an error here,
+        processed_images = processed_images[IMAGES_PER_QUESTION:] # Cut out the last two images from the previous question
+        stack = processed_images[0:IMAGES_PER_QUESTION] # Select the next two images to add to the stack
+    
+    # Header Labels
+    
+
+    question_label.config(text=f"Question {question}/{MAX_QUESTIONS}")
+
+    score_label.config(text=f"Score: {score}")
+
+    # Delete the previous entries and load the new images
+
+    entries.clear()
+    load_images()
 
     refresh_frame() # Next slide/frame
 
@@ -126,14 +141,14 @@ def handle_submit():
     final_score = tk.Label( # Final score as points
         top_frame,
         text=f"Final Score: {score}",
-        font=("Helvetica", 16, "bold"),
+        font=("Segoe UI", 16, "bold"),
         justify="center",
     )
 
     percentage_score = tk.Label( # Final score as a Percentage
         middle_frame,
         text=str(f"{int((score/(MAX_QUESTIONS*2))*100)}%"),
-        font=("Helvetica", 20, "bold")
+        font=("Segoe UI", 20, "bold")
     )
 
     pass_or_fail = "PASS" # This variable is set to "PASS" and reassigned to "FAIL" if the user fails
@@ -146,7 +161,7 @@ def handle_submit():
     pass_ = tk.Label( # Using _ at the end because I want this variable to be named pass.
         middle_frame,
         text=pass_or_fail,
-        font=("Helvetica", 20, "bold"),
+        font=("Segoe UI", 20, "bold"),
         fg=colour
     )
 
@@ -159,7 +174,7 @@ def handle_submit():
 
 # "Next" Button
 
-button = tk.Button(text="Next", justify="center", padx=40, pady=10, bg="lightgreen", relief=FLAT, font=("Helvetica", 12, 'bold'), command=handle_next)
+button = tk.Button(text="Next", justify="center", padx=40, pady=10, bg="lightgreen", relief=FLAT, font=("Segoe UI", 12, 'bold'), command=handle_next)
 
 # Basic frame definitions
 
@@ -178,7 +193,7 @@ middle_frame.pack(pady=20, expand=True, fill=tk.X)
 question_text = tk.Label( # Question Label
     middle_frame,
     text="Identify these aircraft",
-    font=("Arial", 14, "italic"),
+    font=("Segoe UI", 14, "bold italic"),
     bg="white",
     justify="left",
 )
@@ -213,7 +228,7 @@ question_label = tk.Label(
     text=f"Question {question}/{int(MAX_QUESTIONS)}",
     fg="white",
     bg="black",
-    font=("Arial", 16, "bold")
+    font=("Segoe UI", 16, "bold")
 )
 
 question_label.pack()
@@ -223,7 +238,7 @@ score_label = tk.Label(
     text=f"Score: {score}",
     fg="white",
     bg="grey",
-    font=("Arial", 16, "bold")
+    font=("Segoe UI", 16, "bold")
 )
 
 score_label.pack()
@@ -245,7 +260,7 @@ def create_image_input(parent, img):
     image_placeholder = tk.Label(container, image=img, bg="white")
     image_placeholder.pack(pady=(0, 10))
 
-    entry = tk.Entry(container, width=30, font=("Arial", 11), highlightthickness=1, highlightbackground="black") # Input box
+    entry = tk.Entry(container, width=30, font=("Segoe UI", 11), highlightthickness=1, highlightbackground="black") # Input box
     entry.pack()
     entries.append(entry)
 
@@ -280,7 +295,11 @@ load_images()
 # Refresh Progress Bar
 
 def refresh_frame():
+
+    global question
+
     progress["value"] = ((question)/MAX_QUESTIONS) * 100
+    question += 1
 
 refresh_frame()
 root.mainloop()
